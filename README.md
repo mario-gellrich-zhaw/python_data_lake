@@ -1,7 +1,9 @@
 # Data Lake in a Codespace
 
-A self-contained teaching environment that walks through the idea of a 
-data lake — from a raw CSV export to a lakehouse.
+A self-contained teaching environment that walks through the idea of a
+data lake in five steps: raw CSV data, curation into partitioned Parquet,
+querying with DuckDB, object storage with MinIO, and a transactional
+lakehouse with Delta Lake.
 
 ## The story, in five steps
 
