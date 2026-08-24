@@ -15,29 +15,32 @@ no cloud account, no Spark cluster.
 | 4 | Object storage: MinIO (S3-compatible) | [notebooks/04_object_storage_minio.ipynb](notebooks/04_object_storage_minio.ipynb) |
 | 5 | Lakehouse: Delta Lake & ACID | [notebooks/05_lakehouse_delta.ipynb](notebooks/05_lakehouse_delta.ipynb) |
 
-Plain files on a lake (CSV, Parquet, or partitioned Parquet in a bucket)
-have no notion of a 'transaction' (a set of database operations you want to 
-succeed or fail together, as one unit). A write that fails halfway leaves a
-half-written file, and a reader can see that half-written state. A database
-avoids this by wrapping every write in a transaction and guaranteeing four
-properties for it, so a reader never sees a broken in-between state — the
-acronym **ACID**:
+Plain files on a data lake (CSV, Parquet, or partitioned Parquet in a bucket)
+provide no notion of a "transaction" (a set of database operations that must
+succeed or fail together, as a single unit). A write that fails partway
+through leaves a partially written file, and a concurrent reader may observe
+that inconsistent state. A database avoids this by wrapping every write in a
+transaction and guaranteeing four properties for it, such that a reader
+never observes an intermediate, inconsistent state — the acronym **ACID**:
 
-- **Atomicity** — a transaction happens completely or not at all. There is
-  no state where only 3 of 5 new rows made it in.
-- **Consistency** — every transaction takes the table from one valid state
-  to another valid state; the schema and any constraints always hold.
-- **Isolation** — concurrent transactions can't see each other's
-  half-finished work; every reader sees one complete, consistent snapshot.
-- **Durability** — once a transaction is confirmed, it survives, even if
-  the system crashes a moment later.
+- **Atomicity** — a transaction is applied in full or not at all; there is
+  no state in which only part of a write, e.g. 3 of 5 new rows, has taken
+  effect.
+- **Consistency** — every transaction moves the table from one valid state
+  to another valid state; the schema and all constraints continue to hold.
+- **Isolation** — concurrent transactions cannot observe one another's
+  unfinished work; every reader sees a single, complete, consistent
+  snapshot.
+- **Durability** — once a transaction is confirmed, its effects persist
+  even if the system subsequently crashes.
 
-Plain Parquet files give you none of this. `05_lakehouse_delta.ipynb` shows
-how Delta Lake adds it back with nothing more exotic than a folder of JSON
-files (`_delta_log/`): every write becomes one atomic, durable log entry, a
-reader only ever sees the files listed by a fully-written log entry
-(isolation + consistency), and because old data files are never deleted,
-loading an older log state is all "time travel" really is.
+Plain Parquet files provide none of these guarantees. `05_lakehouse_delta.ipynb`
+demonstrates how Delta Lake restores them using nothing more than a folder of
+JSON files (`_delta_log/`): each write is recorded as a single atomic,
+durable log entry; a reader only ever sees the files listed by a fully
+written log entry (isolation and consistency); and because prior data files
+are never deleted, loading an earlier log state is the entire mechanism
+behind "time travel".
 
 ## Getting started
 
