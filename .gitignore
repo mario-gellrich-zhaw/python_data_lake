@@ -1,0 +1,21 @@
+# the data lake itself is generated at runtime, never committed
+lake/
+data/raw/
+
+# MinIO local storage
+.minio-data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

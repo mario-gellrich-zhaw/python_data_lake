@@ -1,0 +1,47 @@
+{
+	"name": "Python 3.12 with Jupyter, Docker and PDF Preview",
+	"image": "mcr.microsoft.com/devcontainers/python:3.12",
+	"hostRequirements": {
+		"cpus": 4
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": true,
+			"dockerDashComposeVersion": "v2"
+		}
+	},
+	"forwardPorts": [9000, 9001],
+	"portsAttributes": {
+		"9000": {
+			"label": "MinIO API (S3)",
+			"onAutoForward": "silent"
+		},
+		"9001": {
+			"label": "MinIO Console",
+			"onAutoForward": "notify"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-toolsai.jupyter",
+				"ms-azuretools.vscode-docker",
+				"ms-python.autopep8",
+				"ms-python.pylint",
+				"analytic-signal.preview-pdf",
+				"grapecity.gc-excelviewer",
+				"github.copilot",
+				"github.copilot-chat",
+				"mechatroner.rainbow-csv"
+			],
+			"settings": {
+				"workbench.colorTheme": "Default Dark+",
+				"editor.rulers": [80],
+				"workbench.iconTheme": "vs-seti"
+			}
+		}
+	},
+    "postCreateCommand": "pip install -r requirements.txt",
+    "remoteUser": "vscode"
+}
