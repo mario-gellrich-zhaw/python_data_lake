@@ -20,7 +20,8 @@ have no notion of a 'transaction' (a set of database operations you want to
 succeed or fail together, as one unit). A write that fails halfway leaves a
 half-written file, and a reader can see that half-written state. A database
 avoids this by wrapping every write in a transaction and guaranteeing four
-properties for it — the acronym **ACID**:
+properties for it, so a reader never sees a broken in-between state — the
+acronym **ACID**:
 
 - **Atomicity** — a transaction happens completely or not at all. There is
   no state where only 3 of 5 new rows made it in.
