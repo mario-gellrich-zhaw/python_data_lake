@@ -1,8 +1,7 @@
 # Data Lake in a Codespace
 
 A self-contained teaching environment that walks through the idea of a 
-data lake — from a raw CSV export to a lakehouse. No local installation, 
-no cloud account, no Spark cluster.
+data lake — from a raw CSV export to a lakehouse.
 
 ## The story, in five steps
 
@@ -46,8 +45,7 @@ layer, communicates with MinIO, the storage layer, purely over the S3
 protocol.
 
 By this point the lake is partitioned, columnar, and served over the
-network — fast to query, but still just files, with none of a database's
-transactional guarantees. `05_lakehouse_delta.ipynb` addresses that gap.
+network — fast to query, but still just files.
 
 Plain files (CSV, Parquet, or partitioned Parquet in a bucket) provide no
 notion of a "transaction" (a set of database operations that must succeed
@@ -68,9 +66,9 @@ never observes an intermediate, inconsistent state — the acronym **ACID**:
 - **Durability** — once a transaction is confirmed, its effects persist
   even if the system subsequently crashes.
 
-Plain Parquet files provide none of these guarantees. `05_lakehouse_delta.ipynb`
-demonstrates how Delta Lake restores them using nothing more than a folder of
-JSON files (`_delta_log/`): each write is recorded as a single atomic,
+`05_lakehouse_delta.ipynb` demonstrates how Delta Lake restores these
+guarantees using nothing more than a folder of JSON files (`_delta_log/`):
+each write is recorded as a single atomic,
 durable log entry; a reader only ever sees the files listed by a fully
 written log entry (isolation and consistency); and because prior data files
 are never deleted, loading an earlier log state is the entire mechanism
@@ -79,7 +77,7 @@ behind "time travel".
 ## Getting started
 
 1. On GitHub, click **Code → Create codespace on main**.
-2. Wait ~2 minutes while the container builds and `pip install -r requirements.txt` runs automatically.
+2. Wait while the container builds and `pip install -r requirements.txt` runs automatically.
 3. Open `notebooks/01_raw_data.ipynb` and run the cells top to bottom.
 4. Continue through `02`, `03` in order.
 5. Before `04_object_storage_minio.ipynb`, start MinIO from a terminal:
@@ -111,14 +109,3 @@ behind "time travel".
 |-- lake/                           # generated at runtime, gitignored
 `-- README.md
 ```
-
-`lake/` is where all generated output lands: `lake/raw/sales.csv`
-(~10-15 MB, 300,000 rows), `lake/verkauf/jahr=.../monat=.../*.parquet`, and
-`lake/delta/sales_delta/`. The dataset is deliberately kept small: generating
-and querying it takes seconds, not minutes, and it's small enough that a
-student can open the raw CSV directly and page through it by hand — the
-point is to see the mechanism clearly, not to benchmark at scale.
-
-`lake/` is listed in [.gitignore](.gitignore) — generated data has no
-business in git history, however small. Every notebook regenerates what it
-needs, so a fresh Codespace always works from nothing.
