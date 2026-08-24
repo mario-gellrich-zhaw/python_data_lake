@@ -1,9 +1,8 @@
 # Data Lake in a Codespace
 
 A self-contained teaching environment that walks through the idea of a 
-data lake — from a raw CSV export to a lakehouse with ACID transactions 
-— entirely inside a GitHub Codespace. No local installation, no cloud account, 
-no Spark cluster.
+data lake — from a raw CSV export to a lakehouse. No local installation, 
+no cloud account, no Spark cluster.
 
 ## The story, in five steps
 
