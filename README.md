@@ -16,14 +16,6 @@ no Spark cluster.
 | 4 | Object storage: MinIO (S3-compatible) | [notebooks/04_object_storage_minio.ipynb](notebooks/04_object_storage_minio.ipynb) |
 | 5 | Lakehouse: Delta Lake & ACID | [notebooks/05_lakehouse_delta.ipynb](notebooks/05_lakehouse_delta.ipynb) |
 
-Each step solves a problem made visible by the previous one: CSV is bulky and
-row-based → Parquet compresses it and makes it columnar. A folder of files
-has no separation of storage/compute → MinIO adds a real object store behind
-the same SQL. Plain files have no transactions → Delta Lake adds an atomic
-log on top. Run the notebooks in order.
-
-## What "ACID" means
-
 Plain files on a lake (CSV, Parquet, or partitioned Parquet in a bucket)
 have no notion of a transaction: a write that fails halfway leaves a
 half-written file, and a reader can see that half-written state. A database
@@ -63,14 +55,23 @@ loading an older log state is all "time travel" really is.
 ## Repository layout
 
 ```
-.devcontainer/devcontainer.json   # Codespace definition (Python, Docker-in-Docker, ports)
-requirements.txt                  # duckdb, pandas, pyarrow, deltalake, minio, jupyter, ...
-scripts/generate_data.py          # generates the synthetic raw CSV
-scripts/start_minio.sh            # docker compose up for MinIO
-scripts/stop_minio.sh             # docker compose down
-docker/docker-compose.yml         # MinIO service definition
-notebooks/                        # the five teaching steps
-lake/                             # generated at runtime — gitignored, never committed
+|-- .devcontainer/
+|   `-- devcontainer.json          # Codespace definition (Python, Docker-in-Docker, ports)
+|-- requirements.txt               # duckdb, pandas, pyarrow, deltalake, minio, jupyter, ...
+|-- scripts/
+|   |-- generate_data.py           # generates the synthetic raw CSV
+|   |-- start_minio.sh             # docker compose up for MinIO
+|   `-- stop_minio.sh              # docker compose down
+|-- docker/
+|   `-- docker-compose.yml         # MinIO service definition
+|-- notebooks/                     # the five teaching steps
+|   |-- 01_raw_data.ipynb
+|   |-- 02_parquet_and_partitioning.ipynb
+|   |-- 03_duckdb_queries.ipynb
+|   |-- 04_object_storage_minio.ipynb
+|   `-- 05_lakehouse_delta.ipynb
+|-- lake/                           # generated at runtime, gitignored
+`-- README.md
 ```
 
 `lake/` is where all generated output lands: `lake/raw/sales.csv`
