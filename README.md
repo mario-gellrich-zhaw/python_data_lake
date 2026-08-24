@@ -9,9 +9,9 @@ no cloud account, no Spark cluster.
 | # | Topic | Where |
 |---|-------|-------|
 | — | Setup: reproducible environment | [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) |
-| 1 | Raw data — the landing zone | [notebooks/01_raw_data.ipynb](notebooks/01_raw_data.ipynb) |
+| 1 | Raw data | [notebooks/01_raw_data.ipynb](notebooks/01_raw_data.ipynb) |
 | 2 | Curation: Parquet & partitioning | [notebooks/02_parquet_and_partitioning.ipynb](notebooks/02_parquet_and_partitioning.ipynb) |
-| 3 | Querying: DuckDB, schema-on-read | [notebooks/03_duckdb_queries.ipynb](notebooks/03_duckdb_queries.ipynb) |
+| 3 | Querying: DuckDB | [notebooks/03_duckdb_queries.ipynb](notebooks/03_duckdb_queries.ipynb) |
 | 4 | Object storage: MinIO (S3-compatible) | [notebooks/04_object_storage_minio.ipynb](notebooks/04_object_storage_minio.ipynb) |
 | 5 | Lakehouse: Delta Lake & ACID | [notebooks/05_lakehouse_delta.ipynb](notebooks/05_lakehouse_delta.ipynb) |
 
