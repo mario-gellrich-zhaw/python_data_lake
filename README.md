@@ -1,4 +1,4 @@
-# Data Lake in a Codespace
+# Data Lake in GitHub Codespaces
 
 A self-contained teaching environment that walks through the idea of a
 data lake in five steps: raw CSV data, curation into partitioned Parquet,
