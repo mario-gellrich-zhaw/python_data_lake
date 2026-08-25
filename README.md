@@ -70,11 +70,10 @@ never observes an intermediate, inconsistent state — the acronym **ACID**:
 
 `05_lakehouse_delta.ipynb` demonstrates how Delta Lake restores these
 guarantees using nothing more than a folder of JSON files (`_delta_log/`):
-each write is recorded as a single atomic,
-durable log entry; a reader only ever sees the files listed by a fully
-written log entry (isolation and consistency); and because prior data files
-are never deleted, loading an earlier log state is the entire mechanism
-behind "time travel".
+each write is recorded as a single atomic, durable log entry; a reader only 
+ever sees the files listed by a fully written log entry (isolation and 
+consistency); and because prior data files are never deleted, loading an 
+earlier log state is the entire mechanism behind "time travel".
 
 ## Getting started
 
