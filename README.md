@@ -79,16 +79,18 @@ earlier log state is the entire mechanism behind "time travel".
 
 1. On GitHub, click **Code → Create codespace on main**.
 2. Wait while the container builds and `pip install -r requirements.txt` runs automatically.
+   Every time the Codespace starts, the local S3 server for step 4 is started
+   as well (`bash scripts/start_s3.sh`, run automatically).
 3. Open `notebooks/01_raw_data.ipynb` and run the cells top to bottom.
 4. Continue through `02`, `03` in order.
-5. Before `04_object_storage_s3.ipynb`, start the local S3 server from a terminal:
+5. Run `04_object_storage_s3.ipynb`. Codespaces forwards port 5000
+   automatically — open the **Ports** tab, select the link and append
+   `/moto-api/` to reach moto's dashboard. The server keeps its data in
+   memory only. If it is not running (e.g. after `bash scripts/stop_s3.sh`),
+   start it again from a terminal:
    ```bash
    bash scripts/start_s3.sh
    ```
-   Codespaces forwards port 9000 automatically — open the **Ports** tab,
-   select the link and append `/moto-api/` to reach moto's dashboard.
-   The server keeps its data in memory only; stop it with
-   `bash scripts/stop_s3.sh`.
 6. Finish with `05_lakehouse_delta.ipynb`.
 
 ## Repository layout
@@ -99,7 +101,7 @@ earlier log state is the entire mechanism behind "time travel".
 |-- requirements.txt               # duckdb, pandas, pyarrow, deltalake, boto3, moto, jupyter, ...
 |-- scripts/
 |   |-- generate_data.py           # generates the synthetic raw CSV
-|   |-- start_s3.sh                # starts the local S3 server (moto) on port 9000
+|   |-- start_s3.sh                # starts the local S3 server (moto) on port 5000; run on Codespace start
 |   `-- stop_s3.sh                 # stops it
 |-- notebooks/                     # the five teaching steps
 |   |-- 01_raw_data.ipynb

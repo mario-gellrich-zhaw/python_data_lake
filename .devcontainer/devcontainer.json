@@ -10,9 +10,9 @@
 			"dockerDashComposeVersion": "v2"
 		}
 	},
-	"forwardPorts": [9000],
+	"forwardPorts": [5000],
 	"portsAttributes": {
-		"9000": {
+		"5000": {
 			"label": "S3 API + dashboard (moto)",
 			"onAutoForward": "notify"
 		}
@@ -34,5 +34,6 @@
 		}
 	},
     "postCreateCommand": "pip install -r requirements.txt",
+    "postStartCommand": "bash scripts/start_s3.sh",
     "remoteUser": "vscode"
 }
