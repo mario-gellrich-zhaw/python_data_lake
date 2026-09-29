@@ -10,14 +10,10 @@
 			"dockerDashComposeVersion": "v2"
 		}
 	},
-	"forwardPorts": [9000, 9001],
+	"forwardPorts": [9000],
 	"portsAttributes": {
 		"9000": {
-			"label": "MinIO API (S3)",
-			"onAutoForward": "silent"
-		},
-		"9001": {
-			"label": "MinIO Console",
+			"label": "S3 API + dashboard (moto)",
 			"onAutoForward": "notify"
 		}
 	},

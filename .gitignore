@@ -2,8 +2,8 @@
 lake/
 data/raw/
 
-# MinIO local storage
-.minio-data/
+# Local S3 server (moto) log and pid file
+.s3-server/
 
 # Python
 __pycache__/
